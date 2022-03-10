@@ -126,7 +126,9 @@ try {
     // Download to per-process temporary file
     const tarFilename = ['libvips', minimumLibvipsVersion, platformAndArch].join('-') + '.tar.' + extension;
     const tarPathCache = path.join(libvips.cachePath(), tarFilename);
-    if (fs.existsSync(tarPathCache)) {
+    const exists = fs.existsSync(tarPathCache);
+    libvips.log(`tarPathCache = ${tarPathCache}, exists = ${exists}`);
+    if (exists) {
       libvips.log(`Using cached ${tarPathCache}`);
       extractTarball(tarPathCache, platformAndArch);
     } else {
